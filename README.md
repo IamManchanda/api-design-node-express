@@ -1,3 +1,3 @@
 # API design in Node.js with Express
 
-Practice project
+> Practice Project - Lesson 1
