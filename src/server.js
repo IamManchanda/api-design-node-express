@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 
 export const app = express();
+const apiRoute = express.Router();
 
 app.disable("x-powered-by");
 
@@ -16,12 +17,15 @@ app.use(
 );
 app.use(morgan("dev"));
 
-const loggy = (req, res, next) => {
-  console.log("Logging");
-  next();
-};
+apiRoute.get("/me", (req, res) => {
+  res.send({
+    message: "Hello, This is Harry",
+  });
+});
 
-app.get("/data", loggy, (req, res) => {
+app.use("/api", apiRoute);
+
+app.get("/data", (req, res) => {
   res.send({
     message: "Hello GET World",
   });
