@@ -16,7 +16,12 @@ app.use(
 );
 app.use(morgan("dev"));
 
-app.get("/data", (req, res) => {
+const loggy = (req, res, next) => {
+  console.log("Logging");
+  next();
+};
+
+app.get("/data", loggy, (req, res) => {
   res.send({
     message: "Hello GET World",
   });
