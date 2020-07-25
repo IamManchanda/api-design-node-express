@@ -4,7 +4,8 @@ import morgan from "morgan";
 import cors from "cors";
 
 export const app = express();
-const apiRoute = express.Router();
+const apiRoutes = express.Router();
+const catRoutes = express.Router();
 
 app.disable("x-powered-by");
 
@@ -17,13 +18,17 @@ app.use(
 );
 app.use(morgan("dev"));
 
-apiRoute.get("/me", (req, res) => {
+catRoutes.route("/cat").get().post();
+catRoutes.route("/cat:id").get().put().post();
+app.use("/api", catRoutes);
+
+apiRoutes.get("/me", (req, res) => {
   res.send({
     message: "Hello, This is Harry",
   });
 });
 
-app.use("/api", apiRoute);
+app.use("/api", apiRoutes);
 
 app.get("/data", (req, res) => {
   res.send({
